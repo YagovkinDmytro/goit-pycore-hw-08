@@ -1,9 +1,9 @@
 from function_contacts import parse_input, add_contact, change_contact, show_phone, show_all, add_birthday, show_birthday, birthdays
-from addres_book import AddressBook
+from serialization_pickle import load_data, save_data
 
 
 def main():
-    book = AddressBook()
+    book = load_data()
     print("Welcome to the assistant bot!")
     
     while True:
@@ -31,6 +31,9 @@ def main():
             print(birthdays(book)) 
         else:
             print("Invalid command.")
+
+    save_data(book)
+
 
 if __name__ == "__main__":
     main()
