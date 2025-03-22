@@ -8,8 +8,8 @@ def input_error(func):
     def inner(*args, **kwargs):
         try:
             return func(*args, **kwargs)
-        except ValueError:
-            return "Please enter 'Name' and 'Phone number'"
+        except ValueError as e:
+            return str(e)
         except KeyError:
             return f"Contact not found."
         except IndexError:
@@ -31,6 +31,8 @@ def parse_input(user_input):
 
 @input_error
 def add_contact(args, book: AddressBook):
+    if len(args) < 2:
+        return "Please provide name and phone number"
     name, phone, *_ = args 
     record = book.find(name)
     if record is None:
@@ -46,6 +48,8 @@ def add_contact(args, book: AddressBook):
 
 @input_error
 def change_contact(args, book: AddressBook):
+    if len(args) < 3:
+        return "Please provide name, old phone number and new phone number"
     name, old_phone, new_phone, *_ = args 
     record = book.find(name)
     if record is None:
@@ -56,6 +60,8 @@ def change_contact(args, book: AddressBook):
 
 @input_error
 def show_phone(args, book: AddressBook):
+    if len(args) < 1:
+        return "Please provide name"
     name, *_ = args 
     record = book.find(name)
     if record is None:
@@ -76,6 +82,8 @@ def show_all(book: AddressBook):
 
 @input_error
 def add_birthday(args, book: AddressBook):
+    if len(args) < 2:
+        return "Please provide both name and birthday in the format: 'Name DD.MM.YYYY'"
     name, birthday, *_ = args
     record = book.find(name)
     if record is None:
@@ -88,6 +96,8 @@ def add_birthday(args, book: AddressBook):
 
 @input_error
 def show_birthday(args, book: AddressBook):
+    if len(args) < 1:
+        return "Please provide name"
     name, *_ = args
     record = book.find(name)
     if record is None:

@@ -64,13 +64,13 @@ class Record:
         if found:
             self.phones = [Phone(new_value) if phone.value == value else phone for phone in self.phones]
         else:
-            raise ValueError("Phone number not found")
+            raise ValueError(f"Phone number {value} not found")
     
     def find_phone(self, value):
         for phone in self.phones:
             if phone.value == value:
                 return phone
-        return f"Phone number {value} not found"
+        raise ValueError(f"Phone number {value} not found")
     
     def add_birthday(self, birthday):
         self.birthday = Birthday(birthday)
